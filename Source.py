@@ -28,3 +28,8 @@ print(class_mapping)
 
 df['classlabel'] = df['classlabel'].map(class_mapping)
 print(df)
+
+#reverse key-value pairs in the mapping dictionary
+inv_class_mapping = {v: k for k, v in class_mapping.items()}
+df['classlabel'] = df['classlabel'].map(inv_class_mapping)
+print(df)
