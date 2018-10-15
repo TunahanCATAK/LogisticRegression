@@ -30,6 +30,7 @@ print(class_mapping)
 df['classlabel'] = df['classlabel'].map(class_mapping)
 print(df)
 
+
 #reverse key-value pairs in the mapping dictionary
 inv_class_mapping = {v: k for k, v in class_mapping.items()}
 df['classlabel'] = df['classlabel'].map(inv_class_mapping)
@@ -40,3 +41,14 @@ from sklearn.preprocessing import LabelEncoder
 class_le = LabelEncoder()
 y = class_le.fit_transform(df['classlabel'].values)
 print(y)
+
+
+X = df[['color', 'size', 'price']].values
+color_le = LabelEncoder()
+X[:, 0] = color_le.fit_transform(X[:, 0])
+print(X)
+
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(categorical_features=[0])
+X = ohe.fit_transform(X).toarray()
+print(X)
