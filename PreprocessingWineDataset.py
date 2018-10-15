@@ -10,3 +10,14 @@ df_wine.columns = ['Class label', 'Alcohol', 'Malic acid', 'Ash',
 
 print('Class labels', np.unique(df_wine['Class label']))
 print(df_wine.head())
+
+# A convenient way to randomly partition this dataset into a separate test and
+# training dataset is to use the train_test_split function from scikit-learn's
+# cross_validation submodule
+
+from sklearn.cross_validation import train_test_split
+X, y = df_wine.iloc[:,1:].values, df_wine.iloc[:,0].values
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# By setting test_size=0.3 we assigned 30 percent of the wine samples to X_test and y_test, and the remaining 70 percent
+# of the samples were assigned to X_train and y_train, respectively
