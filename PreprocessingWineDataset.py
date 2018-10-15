@@ -21,3 +21,19 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # By setting test_size=0.3 we assigned 30 percent of the wine samples to X_test and y_test, and the remaining 70 percent
 # of the samples were assigned to X_train and y_train, respectively
+
+# min-max scaling with scikit-learn function
+from sklearn.preprocessing import MinMaxScaler
+mms = MinMaxScaler()
+X_train_norm = mms.fit_transform(X_train)
+X_test_norm = mms.fit_transform(X_test)
+
+# or Standard Scaler with scikit-learn
+from sklearn.preprocessing import StandardScaler
+stdsc = StandardScaler()
+X_train_std = stdsc.fit_transform(X_train)
+X_test_std = stdsc.fit_transform(X_test)
+
+print(X_train)
+print(X_train_std)
+print(X_train_norm)
