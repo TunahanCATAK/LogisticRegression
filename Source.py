@@ -20,6 +20,7 @@ df['size'] = df['size'].map(size_mapping)
 
 print(df)
 
+"""
 import numpy as np
 # class labels are not ordinal and it doesn't matter which integer number we assign to a particular string-label.
 class_mapping = {label: idx for idx,label in
@@ -33,3 +34,9 @@ print(df)
 inv_class_mapping = {v: k for k, v in class_mapping.items()}
 df['classlabel'] = df['classlabel'].map(inv_class_mapping)
 print(df)
+"""
+
+from sklearn.preprocessing import LabelEncoder
+class_le = LabelEncoder()
+y = class_le.fit_transform(df['classlabel'].values)
+print(y)
