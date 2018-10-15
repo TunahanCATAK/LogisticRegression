@@ -48,10 +48,12 @@ color_le = LabelEncoder()
 X[:, 0] = color_le.fit_transform(X[:, 0])
 print(X)
 
+"""
 from sklearn.preprocessing import OneHotEncoder
 ohe = OneHotEncoder(categorical_features=[0])
 X = ohe.fit_transform(X).toarray()
 print(X)
+"""
 
 # An even more convenient way to create those dummy features via one-hot encoding is to use the get_dummies.
 df = pd.get_dummies(df[['price', 'color', 'size']])
