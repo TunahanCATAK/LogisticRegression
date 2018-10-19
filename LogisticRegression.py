@@ -17,7 +17,6 @@ def ComputeCost(X, y, theta):
     mp_log_y_minus_one = np.multiply(1-y, log_sigmoid_minus_one)
 
     return (-1*mp_log_y - mp_log_y_minus_one).mean()
-    # return (-1/len(y)) * (np.sum(mp_log_y + mp_log_y_minus_one))
 
 def GradientDescent(X, y, theta, alpha, iters):
     for i in range(iters):
@@ -29,7 +28,7 @@ def GradientDescent(X, y, theta, alpha, iters):
     return (theta, cost)
 
 
-data = pd.read_csv("C:\\Users\\tr1c4011\\Downloads\\logistic-regression\\Social_Network_Ads.csv")
+data = pd.read_csv('Social_Network_Ads.csv')
 data.columns = ['User ID', 'Gender', 'Age', 'Estimated Salary', 'Class Label']
 
 X = pd.DataFrame(data.iloc[:,1:4].values)
@@ -48,15 +47,21 @@ from sklearn.preprocessing import MinMaxScaler
 mms = MinMaxScaler()
 X = mms.fit_transform(X)
 
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+
 theta = np.ones([1,4])
-theta[0,0] = 8.16625538
-theta[0,1] = 3.98247249
-theta[0,2] = -6.55357906
-theta[0,3] = -6.30813944
+"""
+theta[0,0] = 9.38338121
+theta[0,1] = 4.62322883
+theta[0,2] = -7.52121024
+theta[0,3] = -7.21505842
+"""
 
 print(theta)
 
-theta, cost = GradientDescent(X, y, theta, 0.01, 10000)
+theta, cost = GradientDescent(X_train, y_train, theta, 0.01, 10000)
 print(theta)
 
 
