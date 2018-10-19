@@ -18,14 +18,23 @@ def ComputeCost(X, y, theta):
 
     return (-1*mp_log_y - mp_log_y_minus_one).mean()
 
-def GradientDescent(X, y, theta, alpha, iters):
+def GradientDescent(X, y, theta, alpha, iters, X_test, y_test):
+    cost = np.zeros(iters)
+    test_cost = np.zeros(iters)
     for i in range(iters):
         total_cost = np.dot(X.T,(Sigmoid(X, theta) - y))
         theta = theta - ((alpha / y.shape[0]) * total_cost).T
-        cost = ComputeCost(X, y, theta)
+        cost[i] = ComputeCost(X, y, theta)
+        test_cost[i] = ComputeCost(X_test, y_test, theta)
         if i % 10 == 0: # just look at cost every ten loops for debugging
-             print(cost)
-    return (theta, cost)
+             print(cost[i], test_cost[i])
+    return (theta, cost, test_cost)
+
+def PlotCostValues(cost):
+    import matplotlib.pyplot as plt
+
+    plt.plot(cost)
+    plt.show()
 
 
 data = pd.read_csv('Social_Network_Ads.csv')
@@ -52,16 +61,21 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 
 theta = np.ones([1,4])
-"""
-theta[0,0] = 9.38338121
-theta[0,1] = 4.62322883
-theta[0,2] = -7.52121024
-theta[0,3] = -7.21505842
-"""
+
+theta[0,0] = 7.94759618
+theta[0,1] = 3.8032821
+theta[0,2] = -6.33667624
+theta[0,3] = -6.14468621
+
 
 print(theta)
 
-theta, cost = GradientDescent(X_train, y_train, theta, 0.01, 10000)
+theta, cost, test_cost = GradientDescent(X_train, y_train, theta, 0.01, 100000, X_test, y_test)
 print(theta)
+print(ComputeCost(X_test, y_test, theta))
+
+PlotCostValues(cost)
+PlotCostValues(test_cost)
+
 
 
